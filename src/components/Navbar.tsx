@@ -21,7 +21,9 @@ const Box = styled.div`
     padding-block: 1.0em;
     padding-inline: 1.8em;
     border-radius: 1.45rem 1.45rem 0 0;
-    color: white;
+    color: grey;
+    background-color: white;
+    box-shadow: 0px -0.3rem 1.3rem 0px rgba(0, 0, 0, 0.08);
 `
 
 export default function Navbar(){
