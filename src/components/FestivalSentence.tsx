@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 const FestivalSentenceBox =styled.div`
-    margin-top: 10rem;
     background-color: #F8F8FA;
     width: 390px;
     height: 73px;
