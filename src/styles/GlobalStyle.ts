@@ -11,7 +11,8 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'SF Pro Display', sans-serif;
         font-family: 'Bubbly', sans-serif;
         background: ${(props) => props.theme.colors.background};
-        color: ${(props) => props.theme.colors.text}
+        color: ${(props) => props.theme.colors.text};
+        padding-bottom: 64px;
     }
 
     *,
