@@ -10,7 +10,6 @@ import InfoWithIcon from './InfoWithIcon';
 import useFetchBooth from '../../hooks/useFetchBooth';
 import boothImg from '../../types/boothImg';
 import Toast from '../Profile/Toast';
-import useLikeStore from '../../hooks/useLikeStore';
 
 const MapInfoTop = styled.div`
   margin: 0 auto;
@@ -150,9 +149,6 @@ export default function DetailedMapPage() {
   const { id } = useParams<{ id: string }>();
   const [showInstruction, setShowInstruction] = useState<boolean>(true);
   const booth = useFetchBooth(id);
-  const [, store] = useLikeStore();
-  
-
   const [translateImg, setTranslateImg] = useState<string>('0');
 
   if (!booth) {
@@ -187,18 +183,6 @@ export default function DetailedMapPage() {
 
   const [toast, setToast] = useState(false);
   const [toastText, setToastText] = useState('');
-  const [likeCount, setLikeCount] = useState<number>(0);
-  useEffect(() => {
-    if (booth && booth.liked) {
-      setLikeCount(booth.liked);
-    }
-  }, [booth]);
-
-  const handleBoothLike = (value: string) => {
-    const newLikeCount = likeCount + 1;
-    setLikeCount(newLikeCount);
-    store.increase(value);
-  };
   const handleShare = async (url: string) => {
     const shareObject: ShareData = {
       title: '희희낙락',
@@ -259,7 +243,7 @@ export default function DetailedMapPage() {
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14" fill="none">
             <path d="M14.5572 1.64121C12.7348 0.00145993 9.82823 0.174949 8.06438 1.86506C8.02336 1.90424 7.95304 1.90424 7.90616 1.86506C6.13644 0.174949 3.22988 0.00145993 1.41328 1.64121C-0.403316 3.28096 -0.502936 6.1687 1.31366 7.90359L6.59352 12.946C7.36704 13.6847 8.61522 13.6847 9.38873 12.946L14.4518 8.11066L14.6627 7.90919C16.4793 6.1743 16.4442 3.34252 14.5631 1.6468L14.5572 1.64121Z" fill="#FF3D00" />
           </svg>
-          <span>{likeCount}</span>
+          <span>{liked}</span>
         </button>
       </MapInfoTop>
       <MapButtonBox>
@@ -269,7 +253,7 @@ export default function DetailedMapPage() {
           </svg>
           <p>공유하기</p>
         </button>
-        <button type="button" onClick={() => handleBoothLike(id)}>
+        <button type="button">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="21" viewBox="0 0 24 21" fill="none">
             <path d="M21.8359 1.84349C19.1022 -0.805334 14.7424 -0.525083 12.0966 2.2051C12.035 2.26839 11.9296 2.26839 11.8592 2.2051C9.20466 -0.525083 4.84482 -0.805334 2.11992 1.84349C-0.604974 4.49231 -0.754403 9.15714 1.97049 11.9596L9.89028 20.105C11.0506 21.2983 12.9228 21.2983 14.0831 20.105L21.6777 12.2941L21.9941 11.9687C24.719 9.16618 24.6662 4.59176 21.8447 1.85253L21.8359 1.84349Z" fill="#BBC7D3" />
           </svg>
