@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import useLikeStore from '../../hooks/useLikeStore';
 
 const Container = styled.div`
   z-index: 100;
@@ -71,7 +70,6 @@ const StyledNavLink = styled(NavLink)`
 const color = '#BBC7D3';
 
 export default function Navbar() {
-  const [, store] = useLikeStore();
   return (
     <Container>
       <Nav>
@@ -109,7 +107,7 @@ export default function Navbar() {
           </li>
 
           <li>
-            <StyledNavLink to="/timetable" onClick={() => store.boothLike()}>
+            <StyledNavLink to="/timetable">
               <svg
                 viewBox="0 0 22 18"
                 fill="none"
