@@ -12,7 +12,7 @@ img {
   width: 159px;
   height: 154px;
   border-radius: 1.2rem;
-  box-shadow: 0px 2px 20px 0px rgba(0, 71, 201, 0.15);
+  box-shadow: 0px 2px 10px 0px rgba(0, 71, 201, 0.15);
 }
 
 div {
