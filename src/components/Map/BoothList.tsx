@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { styled } from 'styled-components';
 
@@ -13,7 +13,7 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const PreButton = styled(NavLink)`
+const PreButton = styled.div`
   cursor: pointer;
   text-decoration: none;
   color: inherit;
@@ -91,6 +91,11 @@ export default function BoothList({
   if (!booths) { return []; }
 
   const formatter = getCompactNumberFormatter();
+  const navigate = useNavigate();
+
+  const handleNavigate = (id: string) => {
+    navigate(`/map/${id}`, { state: { date: selectedDay } });
+  };
 
   return (
     <Container>
@@ -101,7 +106,7 @@ export default function BoothList({
 
         return (
           <PreButton
-            to={`/map/${id}`}
+            onClick={() => handleNavigate(id)}
             key={id}
           >
             <BoothContainer>

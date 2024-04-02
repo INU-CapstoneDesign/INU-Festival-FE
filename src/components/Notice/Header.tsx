@@ -8,6 +8,7 @@ type HeaderProps = {
 }
 
 const HeaderContainer = styled.div <{ $shadow: string }>`
+  max-width: 600px;
   z-index: 3;
   position: fixed;
   width: 100%;
@@ -19,6 +20,7 @@ const HeaderContainer = styled.div <{ $shadow: string }>`
   box-shadow: ${(props) => (props.$shadow === 'true' ? '0px 0.3rem 0.3rem 0px rgba(0, 0, 0, 0.05)' : 'none')};
   padding-top: 8px;
   background-color: #FFFFFF;
+  justify-content:center;
   
   span{
     margin: 0 auto;
@@ -27,7 +29,6 @@ const HeaderContainer = styled.div <{ $shadow: string }>`
     font-weight: 800;
     line-height: normal;
     letter-spacing: -0.64px;
-    flex-direction: column;
     padding-right: 11px;
   }
 

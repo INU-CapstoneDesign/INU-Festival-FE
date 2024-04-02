@@ -9,7 +9,6 @@ interface Booth {
     department: string;
     description: string;
     liked: number;
-    img: string;
     boothDays: BoothDay[];
     boothImgs: boothImg[];
     boothComments: BoothComment[];

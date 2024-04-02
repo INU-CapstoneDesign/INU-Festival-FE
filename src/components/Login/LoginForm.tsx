@@ -7,6 +7,7 @@ import Button from '../UI/Button';
 
 import useAccessToken from '../../hooks/useAccessToken';
 import useLoginFormStore from '../../hooks/useLoginFormStore';
+import useCheckAccessToken from '../../hooks/useCheckAccessToken';
 
 const Container = styled.div`
   width: 100%;

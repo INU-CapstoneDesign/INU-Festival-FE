@@ -9,6 +9,7 @@ const HelpWrapper = styled.ul`
   padding-top: 32px;
   list-style: none;
 `;
+
 const HelpTitle = styled.div`
   font-size: 20px;
   font-style: normal;
@@ -45,6 +46,7 @@ const Helplink = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
+  min-width: fit-content;
 `;
 
 const CopyTextArea = styled.textarea`
@@ -56,7 +58,7 @@ export default function HelpSection() {
   const [toastText, setToastText] = useState('');
 
   const handleShare = async () => {
-    const currentUrl = window.location.host;
+    const currentUrl = 'https://unionfestival.kr/';
     const shareObject: ShareData = {
       title: '희희낙락',
       text: '즐거운 축제의 시작, 희희낙락과 함께하세요!',

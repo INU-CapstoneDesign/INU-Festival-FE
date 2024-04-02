@@ -62,7 +62,7 @@ export default function Footer() {
         <p>23.00.00 ~ 23.00.00</p>
       </Section>
       <Section>
-        <p>Copyrigth 2023 희희낙락 All rights reserved.</p>
+        <p>Copyright 2023 희희낙락 All rights reserved.</p>
       </Section>
     </Container>
   );

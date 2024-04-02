@@ -1,6 +1,6 @@
 interface Keyword{
     id: string;
-    word :string;
+    keyword :string;
 }
 
 export default Keyword;

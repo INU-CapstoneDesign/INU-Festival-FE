@@ -52,7 +52,7 @@ export default function Lineups() {
   };
   return (
     <>
-      <MainBlurContainer $backgroundimg="BOL2.jpeg">
+      <MainBlurContainer>
         <Content>
           <Header />
           <p>오늘의 라인업</p>

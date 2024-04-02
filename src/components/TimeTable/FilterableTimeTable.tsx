@@ -35,7 +35,7 @@ export default function FilterableTimeTable() {
 
   return (
     <div>
-      <TimeTableHedaer $backgroundimg="BOL2.jpeg">
+      <TimeTableHedaer>
         <Categories
           categories={categories}
           filterCategory={filterCategory}

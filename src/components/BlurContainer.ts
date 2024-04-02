@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const BlurContainer = styled.div<{$backgroundimg:string}>`
+const BlurContainer = styled.div`
   max-width: 600px;
   width: 100%;
   padding-inline: ${(props) => props.theme.sizes.contentPadding};
@@ -19,7 +19,7 @@ const BlurContainer = styled.div<{$backgroundimg:string}>`
     bottom: 0px;
     z-index: -1;
     background-size: cover;
-    background-image: ${(props) => (props.$backgroundimg ? `url(${props.$backgroundimg})` : 'none')};
+    background-image: url("BOL2.jpeg")
   }
 `;
 

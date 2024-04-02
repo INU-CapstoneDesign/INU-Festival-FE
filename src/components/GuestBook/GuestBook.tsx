@@ -128,19 +128,6 @@ export default function GuestBook() {
   }, [messageList, data]);
 
   useEffect(() => {
-    if (accessToken) {
-      localStorage.setItem('accessToken', accessToken);
-      setAccessToken(() => accessToken);
-    }
-  }, [accessToken]);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
-
-  useEffect(() => {
     const handleNewMessage = (receivedData: Message) => {
       setMessageList((prevMessages) => [...prevMessages, receivedData]);
     };
@@ -162,12 +149,8 @@ export default function GuestBook() {
       emoji: 'happy',
     };
 
-    fetch(`${process.env.REACT_APP_URL}/shout/add`, {
+    fetch(`${process.env.REACT_APP_URL}/sentence`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
       body: JSON.stringify(dataToSend),
     })
       .then((response) => response.json())
@@ -180,12 +163,14 @@ export default function GuestBook() {
   };
 
   const handleWriteButton = () => {
-    if (accessToken === '""') {
+    const userAccessToken = JSON.parse(accessToken);
+    if (userAccessToken === '') {
       alert('로그인 후에 메시지를 보낼 수 있습니다.');
       navigate('/login');
       return;
     }
-    setBottomBannerZIndex(3000);
+    setBottomBannerZIndex(300);
+    inputRef.current?.focus();
   };
 
   const handleEnter = (e: React.KeyboardEvent) => {
