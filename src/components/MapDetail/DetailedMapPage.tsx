@@ -163,7 +163,7 @@ export default function DetailedMapPage() {
   const [cliked, setClicked] = useState(false);
 
   if (!booth) {
-    return null; // 데이터가 로드되지 않았을 때의 처리
+    return null;
   }
   const {
     name,
@@ -284,7 +284,7 @@ export default function DetailedMapPage() {
           type="button"
           onClick={() => handleBoothLike(id)}
           // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-          onMouseOut={handleMouseout}
+          onTouchStart={handleMouseout}
         >
           <svg width="24" height="21" viewBox="0 0 24 21" fill="current" xmlns="http://www.w3.org/2000/svg">
             <path d="M21.8359 1.84349C19.1022 -0.805334 14.7424 -0.525083 12.0966 2.2051C12.035 2.26839 11.9296 2.26839 11.8592 2.2051C9.20466 -0.525083 4.84482 -0.805334 2.11992 1.84349C-0.604974 4.49231 -0.754403 9.15714 1.97049 11.9596L9.89028 20.105C11.0506 21.2983 12.9228 21.2983 14.0831 20.105L21.6777 12.2941L21.9941 11.9687C24.719 9.16618 24.6662 4.59176 21.8447 1.85253L21.8359 1.84349Z" fill="current" />

@@ -34,7 +34,7 @@ const CommentBox = styled.div`
     }
 `;
 const NoCommentBox = styled.div`
-    height: 300px; /* 일정 높이 설정 */
+    height: 300px; 
     display: flex;
     align-items: center;
     justify-content: center;

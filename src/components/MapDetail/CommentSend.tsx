@@ -1,9 +1,10 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
 
-import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 import SendComment from '../../types/SendComment';
+import useFetchBoothCommentSend from '../../hooks/useFetchBoothCommentSend';
 
 const TextBox = styled.div<{ $isMaximum: boolean }>`
   width: 100%;
@@ -82,16 +83,15 @@ export default function CommentSend({ boothId }: string) {
       emoji: randomEmoji,
       boothId,
     };
+    console.log(dataToSend);
     fetch(`${process.env.REACT_APP_URL}/booth/comment/${boothId}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
       body: JSON.stringify(dataToSend),
     })
+      .then((response) => response.json())
       .catch((error) => console.error('Error:', error));
     setInputValue('');
+    // useFetchBoothCommentSend(BoothId);
   };
   return (
     <TextWrapper>
