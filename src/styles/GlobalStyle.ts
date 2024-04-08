@@ -4,7 +4,9 @@ const GlobalStyle = createGlobalStyle`
     html {
         box-sizing: border-box;
         font-size: 62.5%; // 기본 폰트 크기(16px)를 62.5% 로 줄인다. 계산을 편하게 하기 위해서 
-        -webkit-tap-highlight-color: transparent;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
     }
 
     body {
