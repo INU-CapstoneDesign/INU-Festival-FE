@@ -52,6 +52,7 @@ const MapInfoTop = styled.div`
       font-size: 12px;
       margin: 0 4px;
       font-weight: 550;
+      color:black;
     }
   }
 `;
@@ -82,10 +83,11 @@ const MapButtonBox = styled.div`
   
   button > p {
     margin: 1.5rem 0;
+    color: rgba(187, 199, 211, 1);
   }
   .like{
     fill:#ff0000;
-    color:#949494;
+    color: rgba(187, 199, 211, 1);
   }
   .unliked{
     fill:#BBC7D3
@@ -206,12 +208,6 @@ export default function DetailedMapPage() {
       setLikeCount(liked);
     }
   }, [booth]);
-
-  // useEffect(() => {
-  //   return(
-  //     store.boothLike()
-  //   )
-  // },[]);
 
   const handleBoothLike = (value: string) => {
     const newLikeCount = likeCount + 1;
