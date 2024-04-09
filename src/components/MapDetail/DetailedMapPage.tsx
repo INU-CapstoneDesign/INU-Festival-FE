@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-import useFetchBooth from '../../hooks/useFetchBooth';
-import useLikeStore from '../../hooks/useLikeStore';
-
 import Header from '../Notice/Header';
 import BoothInstruction from './BoothInstruction';
-import BoothComment from './BoothComment';
-import Toast from '../Profile/Toast';
 import InfoWithIcon from './InfoWithIcon';
-
+import useFetchBooth from '../../hooks/useFetchBooth';
 import boothImg from '../../types/boothImg';
+import Toast from '../Profile/Toast';
+import useLikeStore from '../../hooks/useLikeStore';
+import BoothComment from './BoothComment';
 
 const MapInfoTop = styled.div`
   margin: 0 auto;
@@ -77,8 +75,8 @@ const MapButtonBox = styled.div`
     padding-bottom: 5px;
     border: none;
     background-color: #FFFFFF;
-    color: #BBC7D3;
     cursor: pointer;
+    color:#949494;
   }
   
   button > p {
@@ -90,7 +88,7 @@ const MapButtonBox = styled.div`
     color: rgba(187, 199, 211, 1);
   }
   .unliked{
-    fill:#BBC7D3
+    fill:#BBC7D3;
   }
 
 `;
@@ -123,7 +121,6 @@ const MapImageContainer = styled.div<{translateImg: string}>`
   height: 90vw;
   background-color: #D1D9F5;
   transform: translateX(${(props) => props.translateImg});
-  margin-top: 52px;
   `;
 
 const ImageBox = styled.div`
@@ -168,25 +165,21 @@ export default function DetailedMapPage() {
   const [cliked, setClicked] = useState(false);
 
   if (!booth) {
-    return null; // 데이터가 로드되지 않았을 때의 처리
+    return null;
   }
   const {
     name,
     category,
     description,
     liked,
-    boothImgs,
-    boothComments,
-    boothDays,
+    // boothImgs,
   } = booth;
 
-  let selectedDay;
-  const location = useLocation();
-  if (location.state && location.state.date) {
-    selectedDay = location.state.date;
-  } else {
-    selectedDay = boothDays && boothDays['0'].day;
-  }
+  const boothImgs: boothImg[] = [];
+  boothImgs.push({ id: '4', url: 'BOL.jpeg' });
+  boothImgs.push({ id: '5', url: 'BOL2.jpeg' });
+  boothImgs.push({ id: '6', url: 'DAMONS.png' });
+  boothImgs.push({ id: '7', url: 'DAMONS4.png' });
 
   const handleRightButton = () => {
     const newPosition = parseInt(translateImg, 10) - 100;
@@ -204,8 +197,8 @@ export default function DetailedMapPage() {
   const [toastText, setToastText] = useState('');
   const [likeCount, setLikeCount] = useState<number>(0);
   useEffect(() => {
-    if (booth && liked) {
-      setLikeCount(liked);
+    if (booth && booth.liked) {
+      setLikeCount(booth.liked);
     }
   }, [booth]);
 
@@ -214,9 +207,9 @@ export default function DetailedMapPage() {
     setLikeCount(newLikeCount);
     store.increase(value);
     setClicked(true);
-  };
-  const handleMouseout = () => {
-    setClicked(false);
+    setTimeout(() => {
+      setClicked(false);
+    }, 100);
   };
   const handleShare = async (url: string) => {
     const shareObject: ShareData = {
@@ -292,8 +285,6 @@ export default function DetailedMapPage() {
           className={cliked ? 'like' : 'unliked'}
           type="button"
           onClick={() => handleBoothLike(id)}
-          // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-          onMouseOut={handleMouseout}
         >
           <svg width="24" height="21" viewBox="0 0 24 21" fill="current" xmlns="http://www.w3.org/2000/svg">
             <path d="M21.8359 1.84349C19.1022 -0.805334 14.7424 -0.525083 12.0966 2.2051C12.035 2.26839 11.9296 2.26839 11.8592 2.2051C9.20466 -0.525083 4.84482 -0.805334 2.11992 1.84349C-0.604974 4.49231 -0.754403 9.15714 1.97049 11.9596L9.89028 20.105C11.0506 21.2983 12.9228 21.2983 14.0831 20.105L21.6777 12.2941L21.9941 11.9687C24.719 9.16618 24.6662 4.59176 21.8447 1.85253L21.8359 1.84349Z" fill="current" />
@@ -302,7 +293,7 @@ export default function DetailedMapPage() {
         </button>
       </MapButtonBox>
       {toast && <Toast setToast={setToast} text={toastText} />}
-      <InfoWithIcon small="false" booth={booth} selectedDay={selectedDay} />
+      <InfoWithIcon small="false" booth={booth} selectedDay="월" />
       <MapInfoBottom>
         <button
           type="button"
@@ -324,7 +315,7 @@ export default function DetailedMapPage() {
       </MapInfoBottom>
       {showInstruction ? (
         <BoothInstruction description={description || ''} />)
-        : (<BoothComment boothComments={boothComments} />)}
+        : (<BoothComment boothId={id} />)}
     </>
   );
 }

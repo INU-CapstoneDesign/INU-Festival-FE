@@ -2,34 +2,13 @@ import styled from 'styled-components';
 
 import Shouts from '../../types/Shouts';
 
-const SentenceItemBox = styled.li`
+const SentenceItemBox = styled.div`
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
-  height: 100%;
+  height: 60px;
   padding-left: 16px;
-
-  @keyframes slideUp {
-    0%, 10% {
-      top: -5px;
-    }
-    20%, 30% {
-      top: -82px;
-    }
-    40%, 50%{
-      top: -159px;
-    }
-    60%, 70% {
-      top: -236px;
-    }
-    80%, 99% {
-      top: -313px;
-    }
-    100%{
-      top: -5px;
-    }
-  }
 `;
 
 const BallonBox = styled.div`

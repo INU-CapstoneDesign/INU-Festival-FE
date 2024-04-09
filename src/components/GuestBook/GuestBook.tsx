@@ -44,8 +44,8 @@ const Button = styled.button`
 
 const BottomBanner = styled.div`
   padding-inline: ${(props) => props.theme.sizes.contentPadding};
-  position: fixed;
   z-index: 300;
+  position: fixed;
   bottom: 0;
   height: 90px;
   display: flex;
@@ -105,10 +105,10 @@ const ServerURL = process.env.REACT_APP_URL;
 const MAX_LENGTH = 16;
 
 export default function GuestBook() {
-  const [bottomBannerZIndex, setBottomBannerZIndex] = useState(-1);
   const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken') || '');
   const [messageList, setMessageList] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
+  const [inputBanner, setInputBanner] = useState(false);
 
   const navigate = useNavigate();
 
@@ -136,6 +136,12 @@ export default function GuestBook() {
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    if (value.length === 17) {
+      return;
+    }
+
     setInputValue(e.target.value);
   };
 
@@ -143,10 +149,14 @@ export default function GuestBook() {
     const contents = inputValue;
     if (contents === '') return;
 
+    const emojiArray = ['happy', 'thrilling', 'funny', 'excited'];
+    const randomIndex = Math.floor(Math.random() * emojiArray.length);
+    const emoji = emojiArray[randomIndex];
+
     const dataToSend: Message = {
       studentId: store.name,
       content: contents,
-      emoji: 'happy',
+      emoji,
     };
 
     fetch(`${process.env.REACT_APP_URL}/sentence`, {
@@ -169,7 +179,7 @@ export default function GuestBook() {
       navigate('/login');
       return;
     }
-    setBottomBannerZIndex(300);
+    setInputBanner(true);
     inputRef.current?.focus();
   };
 
@@ -177,10 +187,16 @@ export default function GuestBook() {
     if (e.key === 'Enter') handleSendMessage();
   };
 
+  const handleBottomBanner = () => {
+    if (inputBanner) {
+      setInputBanner(false);
+    }
+  };
+
   return (
     <>
       <Header shadow="false">방명록</Header>
-      <Container ref={chatWindow}>
+      <Container ref={chatWindow} onClick={() => handleBottomBanner()}>
         {
           data?.shouts.map((message) => (
             <MessageContainer msg={message} name={store.name} key={message.id} />
@@ -192,32 +208,35 @@ export default function GuestBook() {
           ))
         }
         <div ref={messageEndRef} />
-        <Button onClick={handleWriteButton}>한 줄 외치기</Button>
+        {!inputBanner && <Button onClick={handleWriteButton}>한 줄 외치기</Button>}
       </Container>
-      <BottomBanner style={{ zIndex: bottomBannerZIndex }}>
-        <TextBox $isMaximum={inputValue.length >= MAX_LENGTH}>
-          <input
-            type="text"
-            value={inputValue}
-            maxLength={MAX_LENGTH}
-            onChange={handleInputChange}
-            ref={inputRef}
-            onKeyUp={(e) => handleEnter(e)}
-          />
-          <span>
-            {inputValue.length}
-            /
-            {MAX_LENGTH}
-          </span>
-        </TextBox>
-        <button type="submit" onClick={handleSendMessage} aria-label="한줄외치기버튼">
-          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-            <circle cx="18" cy="18" r="18" fill="#0047C9" />
-            <path fillRule="evenodd" clipRule="evenodd" d="M18.7247 9.72766C18.3458 9.32581 17.7316 9.32581 17.3527 9.72766L10.686 16.7992C10.3071 17.2011 10.3071 17.8526 10.686 18.2545C11.0648 18.6563 11.6791 18.6563 12.0579 18.2545L18.0387 11.9105L24.0195 18.2545C24.3983 18.6563 25.0126 18.6563 25.3914 18.2545C25.7703 17.8526 25.7703 17.2011 25.3914 16.7992L18.7247 9.72766Z" fill="white" />
-            <path d="M17.0521 27.041C17.0521 27.5933 17.4998 28.041 18.0521 28.041C18.6044 28.041 19.0521 27.5933 19.0521 27.041L17.0521 27.041ZM17.0521 11.041L17.0521 27.041L19.0521 27.041L19.0521 11.041L17.0521 11.041Z" fill="white" />
-          </svg>
-        </button>
-      </BottomBanner>
+      {inputBanner && (
+        <BottomBanner>
+          <TextBox $isMaximum={inputValue.length > MAX_LENGTH}>
+            <input
+              type="text"
+              value={inputValue}
+              maxLength={MAX_LENGTH}
+              onChange={handleInputChange}
+              ref={inputRef}
+              onKeyUp={(e) => handleEnter(e)}
+              spellCheck="false"
+            />
+            <span>
+              {inputValue.length}
+              /
+              {MAX_LENGTH}
+            </span>
+          </TextBox>
+          <button type="submit" onClick={handleSendMessage} aria-label="한줄외치기버튼">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <circle cx="18" cy="18" r="18" fill="#0047C9" />
+              <path fillRule="evenodd" clipRule="evenodd" d="M18.7247 9.72766C18.3458 9.32581 17.7316 9.32581 17.3527 9.72766L10.686 16.7992C10.3071 17.2011 10.3071 17.8526 10.686 18.2545C11.0648 18.6563 11.6791 18.6563 12.0579 18.2545L18.0387 11.9105L24.0195 18.2545C24.3983 18.6563 25.0126 18.6563 25.3914 18.2545C25.7703 17.8526 25.7703 17.2011 25.3914 16.7992L18.7247 9.72766Z" fill="white" />
+              <path d="M17.0521 27.041C17.0521 27.5933 17.4998 28.041 18.0521 28.041C18.6044 28.041 19.0521 27.5933 19.0521 27.041L17.0521 27.041ZM17.0521 11.041L17.0521 27.041L19.0521 27.041L19.0521 11.041L17.0521 11.041Z" fill="white" />
+            </svg>
+          </button>
+        </BottomBanner>
+      )}
     </>
   );
 }

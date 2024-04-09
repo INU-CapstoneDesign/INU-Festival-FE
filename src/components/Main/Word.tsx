@@ -1,10 +1,8 @@
 import styled from 'styled-components';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
+
 import useFetchKeyword from '../../hooks/useFetchWords';
-import 'swiper/swiper-bundle.min.css';
-import 'swiper/swiper.min.css';
-import 'swiper/components/navigation/navigation.min.css';
-import 'swiper/components/pagination/pagination.min.css';
 import Skeleton from '../Loading/Skeleton';
 
 const WordContainer = styled.div`
@@ -44,7 +42,6 @@ export default function Word() {
         allowTouchMove
         freeMode
         slidesOffsetAfter={65}
-        freeModeMinimumVelocity={0.01}
       >
         {data === undefined ? (
           new Array(10).fill(1).map((_, i) => (

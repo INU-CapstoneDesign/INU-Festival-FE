@@ -56,7 +56,6 @@ export default function NoticeBottom({ notice } : NoticeItemProps) {
         spaceBetween={10}
         allowTouchMove
         freeMode
-        freeModeMinimumVelocity={0.01}
       >
         <NoticeImageContainer>
           {
