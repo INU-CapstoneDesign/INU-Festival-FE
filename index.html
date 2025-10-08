@@ -17,12 +17,14 @@
     <meta property="og:image" content="./static/KAKAO/thumbnail.png"/>
 
     <link rel="icon" type="image/x-icon" href="static/UNION/main.png">
-    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet"></noscript>
 </head>
 <body>
     <div id="root">
     </div>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4cd7e1956197110a5aebf1b46e31d84c"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4cd7e1956197110a5aebf1b46e31d84c" defer></script>
     <script type="module" src="src/main.tsx"></script>
 </body>
 </html>

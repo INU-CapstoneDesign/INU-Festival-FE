@@ -16,4 +16,29 @@ export default defineConfig({
     },
   },
   publicDir: "static",
+  build: {
+    // JavaScript 최소화 설정
+    minify: "terser",
+    terserOptions: {
+      compress: {
+        drop_console: true, // console.log 제거
+        drop_debugger: true, // debugger 제거
+        pure_funcs: ["console.log", "console.info"],
+      },
+      format: {
+        comments: false, // 주석 제거
+      },
+    },
+    // 코드 스플리팅 설정
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom", "react-router-dom"],
+          ui: ["styled-components", "swiper"],
+          utils: ["axios", "usehooks-ts"],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+  },
 });
