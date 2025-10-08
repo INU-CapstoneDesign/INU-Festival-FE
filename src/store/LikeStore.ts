@@ -1,15 +1,15 @@
-import { singleton } from 'tsyringe';
+import { singleton } from "tsyringe";
 
-import { Action, Store } from 'usestore-ts';
+import { Action, Store } from "usestore-ts";
 
-import { apiService } from '../services/ApiService';
+import { apiService } from "../services/ApiService";
 
 @singleton()
 @Store()
 
 // eslint-disable-next-line import/prefer-default-export
 export class LikeStore {
-  id = '';
+  id = "";
 
   liked = 0;
 
@@ -29,7 +29,7 @@ export class LikeStore {
   @Action()
   reset() {
     this.liked = 0;
-    this.id = '';
+    this.id = "";
     this.error = false;
   }
 
@@ -41,7 +41,7 @@ export class LikeStore {
       });
       this.reset();
     } catch (e) {
-      alert('좋아요는 모바일에서만 가능합니다!');
+      alert("좋아요는 모바일에서만 가능합니다!");
       this.setError();
     }
   }

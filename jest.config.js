@@ -1,28 +1,28 @@
 module.exports = {
-  testEnvironment: 'jsdom',
+  testEnvironment: "jsdom",
   setupFilesAfterEnv: [
-    '@testing-library/jest-dom/extend-expect',
-    './jest.setup',
+    "@testing-library/jest-dom/extend-expect",
+    "./jest.setup",
   ],
   transform: {
-    '^.+\\.(t|j)sx?$': ['@swc/jest', {
+    "^.+\\.(t|j)sx?$": ["@swc/jest", {
       jsc: {
         parser: {
-          syntax: 'typescript',
+          syntax: "typescript",
           jsx: true,
           decorators: true,
         },
         transform: {
           react: {
-            runtime: 'automatic',
+            runtime: "automatic",
           },
-          transform: { '^.+\\.jsx?$': 'babel-jest', '^.+\\.svg$': 'jest-svg-transformer' },
+          transform: { "^.+\\.jsx?$": "babel-jest", "^.+\\.svg$": "jest-svg-transformer" },
         },
       },
     }],
   },
   testPathIgnorePatterns: [
-    '<rootDir>/node_modules/',
-    '<rootDir>/dist/',
+    "<rootDir>/node_modules/",
+    "<rootDir>/dist/",
   ],
 };

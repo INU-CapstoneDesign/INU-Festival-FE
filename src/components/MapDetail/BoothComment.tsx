@@ -1,67 +1,66 @@
-import { styled } from 'styled-components';
-import { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router';
-import useFetchBoothComment from '../../hooks/useFetchBoothComment';
-import SendComment from '../../types/SendComment';
-import BoothComment from '../../types/BoothComment';
-import useUserStore from '../../hooks/useUserStore';
+import { styled } from "styled-components";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router";
+import useFetchBoothComment from "../../hooks/useFetchBoothComment";
+import SendComment from "../../types/SendComment";
+import BoothComment from "../../types/BoothComment";
+import useUserStore from "../../hooks/useUserStore";
 
 const CommentTop = styled.div`
   display: flex;
   align-items: center;
   padding-bottom: 1rem;
 
-  img{
+  img {
     margin-right: 10px;
     width: 20px;
-      
   }
-  div{
-    margin-left:10px;
+  div {
+    margin-left: 10px;
   }
 `;
 const CommentBox = styled.div`
   padding: 3rem;
 
-  p{
+  p {
     padding-left: 30px;
     font-weight: 400;
   }
 
-  h3{
+  h3 {
     font-weight: 700;
-    color: #969FA9;
+    color: #969fa9;
     font-size: 1.4rem;
   }
 
-  div{
-    color: #BBC7D3;
+  div {
+    color: #bbc7d3;
     font-size: 1.4rem;
   }
 `;
 const NoCommentBox = styled.div`
-    height: 150px; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color:#686B68;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #686b68;
 `;
 const TextBox = styled.div<{ $isMaximum: boolean }>`
   width: 100%;
-  border-bottom: 2px solid ${(props) => (props.$isMaximum ? '#F00' : '#0047C9')};
+  border-bottom: 2px solid ${(props) => (props.$isMaximum ? "#F00" : "#0047C9")};
   padding-bottom: 5px;
 
-  span{
+  span {
     float: right;
     font-size: 11px;
     font-weight: 600;
     line-height: 21px;
     letter-spacing: -0.33px;
   }
-  
-  input{
+
+  input {
     border: none;
-    color: #0042B9;
+    color: #0042b9;
     font-family: SUIT, sans-serif;
     font-size: 16px;
     font-style: normal;
@@ -70,7 +69,7 @@ const TextBox = styled.div<{ $isMaximum: boolean }>`
     letter-spacing: -0.6px;
     width: calc(100% - 50px);
 
-    &:focus{
+    &:focus {
       outline: none;
     }
   }
@@ -82,26 +81,26 @@ const TextWrapper = styled.div`
   height: 90px;
   display: flex;
   align-items: center;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   width: 100%;
   max-width: 600px;
   border-radius: 20px 20px 0px 0px;
 
-  button{
+  button {
     border: none;
     background: none;
     padding: 0;
     padding-left: 10px;
     outline: none;
-    }
+  }
 `;
 
 const MAX_LENGTH = 50;
-const emojis = ['happy', 'funny', 'thrilling', 'excited'];
+const emojis = ["happy", "funny", "thrilling", "excited"];
 
 function CommentInput({ inputValue, handleInputChange, handleSendComment }) {
   const handleEnter = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') handleSendComment();
+    if (e.key === "Enter") handleSendComment();
   };
   return (
     <TextWrapper>
@@ -114,13 +113,22 @@ function CommentInput({ inputValue, handleInputChange, handleSendComment }) {
           onKeyUp={(e) => handleEnter(e)}
         />
         <span>
-          {inputValue.length}
-          /
-          {MAX_LENGTH}
+          {inputValue.length}/{MAX_LENGTH}
         </span>
       </TextBox>
-      <button type="submit" onClick={handleSendComment} aria-label="부스댓글버튼" style={{ cursor: 'pointer' }}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+      <button
+        type="submit"
+        onClick={handleSendComment}
+        aria-label="부스댓글버튼"
+        style={{ cursor: "pointer" }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="36"
+          height="36"
+          viewBox="0 0 36 36"
+          fill="none"
+        >
           <circle cx="18" cy="18" r="18" fill="#0047C9" />
           <path
             fillRule="evenodd"
@@ -138,34 +146,37 @@ function CommentInput({ inputValue, handleInputChange, handleSendComment }) {
   );
 }
 
-const BoothCommentList = ({ boothComments }) => boothComments.map((boothCommentDetail, index) => {
-  const {
-    userId, content, createdAt, emoji,
-  } = boothCommentDetail;
-  const createdAtDate = new Date(createdAt);
+const BoothCommentList = ({ boothComments }) =>
+  boothComments.map((boothCommentDetail, index) => {
+    const { userId, content, createdAt, emoji } = boothCommentDetail;
+    const createdAtDate = new Date(createdAt);
 
-  const formattedDateTime = createdAtDate.toLocaleString(undefined, {
-    dateStyle: 'short',
-    timeStyle: 'short',
+    const formattedDateTime = createdAtDate.toLocaleString(undefined, {
+      dateStyle: "short",
+      timeStyle: "short",
+    });
+
+    return (
+      <CommentBox key={index}>
+        <CommentTop>
+          <img src={`/${emoji}.svg`} alt={`${emoji}`} />
+          <h3>{userId}</h3>
+          <div>{formattedDateTime}</div>
+        </CommentTop>
+        <p>{content}</p>
+      </CommentBox>
+    );
   });
 
-  return (
-    <CommentBox key={index}>
-      <CommentTop>
-        <img src={`/${emoji}.svg`} alt={`${emoji}`} />
-        <h3>{userId}</h3>
-        <div>{formattedDateTime}</div>
-      </CommentTop>
-      <p>{content}</p>
-    </CommentBox>
-  );
-});
-
-export default function BoothComment(
-  { boothId, setCommentCount }: { boothId: string, setCommentCount: (value: number) => void; },
-) {
-  const [inputValue, setInputValue] = useState('');
-  const accessToken = localStorage.getItem('accessToken');
+export default function BoothCommentComponent({
+  boothId,
+  setCommentCount,
+}: {
+  boothId: string;
+  setCommentCount: (value: number) => void;
+}) {
+  const [inputValue, setInputValue] = useState("");
+  const accessToken = localStorage.getItem("accessToken");
   const navigate = useNavigate();
   const location = useLocation();
   const boothComments: BoothComment[] = useFetchBoothComment(boothId);
@@ -178,8 +189,8 @@ export default function BoothComment(
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (accessToken === '""') {
-      alert('로그인 후에 메시지를 보낼 수 있습니다.');
-      navigate('/login', { state: { from: location.pathname } });
+      alert("로그인 후에 메시지를 보낼 수 있습니다.");
+      navigate("/login", { state: { from: location.pathname } });
       return;
     }
     if (e.target.value.length > MAX_LENGTH) {
@@ -200,32 +211,36 @@ export default function BoothComment(
 
     setCommentCount((prev: number) => prev + 1);
 
-    fetch(`${process.env.REACT_APP_URL}/booth/comment/${boothId}`, {
-      method: 'POST',
+    fetch(`${import.meta.env.VITE_API_URL}/booth/comment/${boothId}`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(dataToSend),
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Failed to send comment');
+          throw new Error("Failed to send comment");
         }
         return response.json();
       })
       .then(() => {
-        setInputValue('');
+        setInputValue("");
         setNewBoothComment([...newBoothComment, dataToSend]);
       })
-      .catch((error) => console.error('Error:', error));
+      .catch((error) => {
+        // 에러 처리 (필요시 사용자에게 알림)
+      });
   };
 
   if (boothComments.length === 0) {
     if (newBoothComment.length === 0) {
       return (
         <>
-          <NoCommentBox>실시간 부스에 대한 정보와 여러분의 감상을 남겨주세요 !</NoCommentBox>
+          <NoCommentBox>
+            실시간 부스에 대한 정보와 여러분의 감상을 남겨주세요 !
+          </NoCommentBox>
           <CommentInput
             inputValue={inputValue}
             handleInputChange={handleInputChange}
@@ -242,7 +257,9 @@ export default function BoothComment(
       {newBoothComment.map((boothCommentDetail, index) => {
         const { content, emoji } = boothCommentDetail;
         const nameLength = store.name.length;
-        const name = store.name.substring(0, nameLength - 3) + store.name.substring(nameLength - 3).replace(/./g, '*');
+        const name =
+          store.name.substring(0, nameLength - 3) +
+          store.name.substring(nameLength - 3).replace(/./g, "*");
         return (
           <CommentBox key={index}>
             <CommentTop>

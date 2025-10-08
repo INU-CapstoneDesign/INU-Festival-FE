@@ -1,5 +1,5 @@
-import { styled } from 'styled-components';
-import Category from './Category';
+import { styled } from "styled-components";
+import Category from "./Category";
 
 const Content = styled.header`
   position: relative;

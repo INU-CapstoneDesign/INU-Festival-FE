@@ -1,6 +1,6 @@
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
-import Notice from '../../types/Notice';
+import Notice from "../../types/Notice";
 
 type NoticeItemProps = {
     notice: Notice;
@@ -42,7 +42,7 @@ export default function NoticeTitle({ notice } : NoticeItemProps) {
   const { category } = notice;
   return (
     <>
-      { category === '공지사항' ? (
+      { category === "공지사항" ? (
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="15" viewBox="0 0 14 15" fill="none">
           <path d="M14 7.49969C14 6.11162 12.8415 4.97542 11.3729 4.87355V1.56243C11.3729 0.699346 10.6183 0 9.68712 0H9.61834C9.27242 0 8.93324 0.0924962 8.64262 0.266864L3.30007 3.46798H1.68577C0.754552 3.46798 0 4.16733 0 5.03042V9.41398C0 10.2771 0.754552 10.9764 1.68577 10.9764H3.30007L8.6089 14.6669C8.91976 14.8831 9.29804 15 9.68712 15C10.6183 15 11.3729 14.3007 11.3729 13.4376V10.1265C12.8422 10.0246 14 8.88838 14 7.50031V7.49969Z" fill="url(#paint0_linear_546_927)" />
           <defs>

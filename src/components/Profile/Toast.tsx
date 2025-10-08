@@ -1,5 +1,5 @@
-import { useEffect, SetStateAction, Dispatch } from 'react';
-import styled from 'styled-components';
+import { useEffect, SetStateAction, Dispatch } from "react";
+import styled from "styled-components";
 
 type ToastProps = {
     setToast: Dispatch<SetStateAction<boolean>>

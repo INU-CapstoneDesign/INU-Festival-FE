@@ -1,8 +1,8 @@
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
-import { SwiperSlide } from 'swiper/react';
+import { SwiperSlide } from "swiper/react";
 
-import Skeleton from './Skeleton';
+import Skeleton from "./Skeleton";
 
 const SkeletonImg = styled(Skeleton.SkeletonBox)`
     box-shadow: 0px 2px 20px 0px rgba(0, 71, 201, 0.15);

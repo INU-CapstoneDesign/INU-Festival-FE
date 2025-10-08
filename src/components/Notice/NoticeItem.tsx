@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
-import Notice from '../../types/Notice';
-import NoticeBottom from './NoticeBottom';
-import NoticeTitle from './NoticeTitle';
+import Notice from "../../types/Notice";
+import NoticeBottom from "./NoticeBottom";
+import NoticeTitle from "./NoticeTitle";
 
 const NoticeBox = styled.div`
   margin-bottom: 32px;

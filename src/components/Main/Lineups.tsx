@@ -1,14 +1,14 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { useNavigate } from 'react-router';
+import { useNavigate } from "react-router";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import Header from './Header';
-import LineUp from './LineUp';
-import BlurContainer from '../BlurContainer';
+import Header from "./Header";
+import LineUp from "./LineUp";
+import BlurContainer from "../BlurContainer";
 
-import useCheckScreenWidth from '../../hooks/useCheckScreenWidth';
+import useCheckScreenWidth from "../../hooks/useCheckScreenWidth";
 
 const Content = styled.div`
   position: relative;
@@ -48,7 +48,7 @@ export default function Lineups() {
   const naviagetor = useNavigate();
 
   const handleClick = () => {
-    naviagetor('/timetable');
+    naviagetor("/timetable");
   };
   return (
     <>

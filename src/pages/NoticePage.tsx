@@ -1,10 +1,10 @@
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
-import Article from '../components/Article';
-import Header from '../components/Notice/Header';
-import NoticeItem from '../components/Notice/NoticeItem';
+import Article from "../components/Article";
+import Header from "../components/Notice/Header";
+import NoticeItem from "../components/Notice/NoticeItem";
 
-import useFetchNotices from '../hooks/useFetchNotice';
+import useFetchNotices from "../hooks/useFetchNotice";
 
 const Wrapper = styled.div`
   display: flex;

@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
-import Notice from '../../types/Notice';
-import useCheckScreenWidth from '../../hooks/useCheckScreenWidth';
-import ImageModal from './ImageModal';
+import Notice from "../../types/Notice";
+import useCheckScreenWidth from "../../hooks/useCheckScreenWidth";
+import ImageModal from "./ImageModal";
 
 const NoticeContentBox = styled.div`
   background-color: #EBF2FF;
@@ -39,7 +39,7 @@ type NoticeItemProps = {
 export default function NoticeBottom({ notice } : NoticeItemProps) {
   const [perview, setPerView] = useState(3);
   const [modal, setModal] = useState(false);
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState("");
   const defaultPerview = 3;
 
   const handleImageClick = (src: string) => {

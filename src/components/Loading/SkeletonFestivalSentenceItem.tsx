@@ -1,6 +1,6 @@
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
-import Skeleton from './Skeleton';
+import Skeleton from "./Skeleton";
 
 const SkeletonItem = styled.li`
   display: flex;

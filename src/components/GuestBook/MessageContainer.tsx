@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import Message from '../../types/Message';
+import styled from "styled-components";
+import Message from "../../types/Message";
 
 const MessageBox = styled.div`
   width: 100%;
@@ -71,7 +71,7 @@ export default function MessageContainer({ msg, name }: {msg: Message, name: str
     content, emoji, studentId,
   } = msg;
   return (
-    <MessageBox className={studentId === name ? 'sent' : 'received'}>
+    <MessageBox className={studentId === name ? "sent" : "received"}>
       <Content>
         <span>{content}</span>
       </Content>

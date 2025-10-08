@@ -1,11 +1,11 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
 
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
-import Navbar from './Main/Navbar';
-import useCheckAccessToken from '../hooks/useCheckAccessToken';
+import Navbar from "./Main/Navbar";
+import useCheckAccessToken from "../hooks/useCheckAccessToken";
 
-import useLikeStore from '../hooks/useLikeStore';
+import useLikeStore from "../hooks/useLikeStore";
 
 const Container = styled.div`
   margin: auto;

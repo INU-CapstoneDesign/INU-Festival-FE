@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import useAccessToken from './useAccessToken';
+import useAccessToken from "./useAccessToken";
 
-import { apiService } from '../services/ApiService';
+import { apiService } from "../services/ApiService";
 
 export default function useCheckAccessToken(): void {
   const { accessToken, setAccessToken } = useAccessToken();
@@ -12,7 +12,7 @@ export default function useCheckAccessToken(): void {
       try {
         await apiService.fetchCurrentUser();
       } catch (e) {
-        setAccessToken('');
+        setAccessToken("");
       }
     };
 

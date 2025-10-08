@@ -1,10 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 type HeaderProps = {
   children: React.ReactNode;
-  shadow: 'true' | 'false';
+  shadow: "true" | "false";
 }
 
 const HeaderContainer = styled.div <{ $shadow: string }>`
@@ -17,7 +17,7 @@ const HeaderContainer = styled.div <{ $shadow: string }>`
   align-items: center;
   padding-inline: ${(props) => props.theme.sizes.contentPadding};
   padding-block: 12px;
-  box-shadow: ${(props) => (props.$shadow === 'true' ? '0px 0.3rem 0.3rem 0px rgba(0, 0, 0, 0.05)' : 'none')};
+  box-shadow: ${(props) => (props.$shadow === "true" ? "0px 0.3rem 0.3rem 0px rgba(0, 0, 0, 0.05)" : "none")};
   padding-top: 8px;
   background-color: #FFFFFF;
   justify-content:center;

@@ -1,6 +1,6 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from "react";
 
-import { MAX_Y, MIN_Y } from '../components/Map/BannerContent';
+import { MAX_Y, MIN_Y } from "../components/Map/BannerContent";
 
 interface BottomSheetMetrics {
   touchStart: {
@@ -9,7 +9,7 @@ interface BottomSheetMetrics {
   };
   touchMove: {
     prevTouchY?: number; // 다음 touchmove 이벤트 핸들러에서 필요한 터치 포인트 Y값을 저장
-    movingDirection: 'none' | 'down' | 'up'; // 유저가 터치를 움직이고 있는 방향
+    movingDirection: "none" | "down" | "up"; // 유저가 터치를 움직이고 있는 방향
   };
   isContentAreaTouched: boolean; // 컨텐츠 영역을 터치하고 있음을 기록
 }
@@ -26,7 +26,7 @@ export function useBottomSheet() {
     },
     touchMove: {
       prevTouchY: 0,
-      movingDirection: 'none',
+      movingDirection: "none",
     },
     isContentAreaTouched: false,
   });
@@ -47,7 +47,7 @@ export function useBottomSheet() {
         return true;
       }
 
-      if (touchMove.movingDirection === 'down') {
+      if (touchMove.movingDirection === "down") {
         // 스크롤을 더 이상 올릴 것이 없다면, 바텀시트를 움직이는 것이 자연스럽습니다.
         // Safari 에서는 bounding 효과 때문에 scrollTop 이 음수가 될 수 있습니다. 따라서 0보다 작거나 같음 (<=)으로 검사합니다.
         return Number(content.current?.scrollTop) <= 0;
@@ -60,23 +60,23 @@ export function useBottomSheet() {
       const { touchStart } = metrics.current;
 
       touchStart.sheetY = Number(sheet.current?.getBoundingClientRect().y);
-      touchStart.touchY = ('touches' in e ? e.touches[0].clientY : e.clientY) as number;
+      touchStart.touchY = ("touches" in e ? e.touches[0].clientY : e.clientY) as number;
     };
 
     const handleTouchMove = (e: TouchEvent | MouseEvent) => {
       const { touchStart, touchMove } = metrics.current;
-      const currentTouch = 'touches' in e ? e.touches[0] : e;
+      const currentTouch = "touches" in e ? e.touches[0] : e;
 
       if (touchMove.prevTouchY === undefined) {
         touchMove.prevTouchY = touchStart.touchY;
       }
 
       if (touchStart.sheetY < currentTouch.clientY) {
-        touchMove.movingDirection = 'down';
+        touchMove.movingDirection = "down";
       }
 
       if (touchStart.sheetY > currentTouch.clientY) {
-        touchMove.movingDirection = 'up';
+        touchMove.movingDirection = "up";
       }
 
       if (canUserMoveBottomSheet()) {
@@ -98,7 +98,7 @@ export function useBottomSheet() {
 
         // sheet 위치 갱신.
         sheet.current?.style.setProperty(
-          'transform',
+          "transform",
           `translateY(${nextSheetY - MAX_Y}px)`,
         );
       }
@@ -111,17 +111,17 @@ export function useBottomSheet() {
       const currentSheetY = Number(sheet.current?.getBoundingClientRect().y);
 
       if (currentSheetY !== 60) {
-        if (touchMove.movingDirection === 'down') {
-          sheet.current?.style.setProperty('transform', 'translateY(0)');
-          document.body.style.overflowY = 'auto';
+        if (touchMove.movingDirection === "down") {
+          sheet.current?.style.setProperty("transform", "translateY(0)");
+          document.body.style.overflowY = "auto";
         }
 
-        if (touchMove.movingDirection === 'up') {
+        if (touchMove.movingDirection === "up") {
           sheet.current?.style.setProperty(
-            'transform',
+            "transform",
             `translateY(${MIN_Y - MAX_Y}px)`,
           );
-          document.body.style.overflowY = 'hidden';
+          document.body.style.overflowY = "hidden";
         }
       }
 
@@ -133,28 +133,28 @@ export function useBottomSheet() {
         },
         touchMove: {
           prevTouchY: 0,
-          movingDirection: 'none',
+          movingDirection: "none",
         },
         isContentAreaTouched: false,
       };
     };
 
-    sheet.current?.addEventListener('touchstart', handleTouchStart);
-    sheet.current?.addEventListener('touchmove', handleTouchMove);
-    sheet.current?.addEventListener('touchend', handleTouchEnd);
+    sheet.current?.addEventListener("touchstart", handleTouchStart);
+    sheet.current?.addEventListener("touchmove", handleTouchMove);
+    sheet.current?.addEventListener("touchend", handleTouchEnd);
 
-    sheet.current?.addEventListener('mousedown', handleTouchStart);
-    sheet.current?.addEventListener('mousemove', handleTouchMove);
-    sheet.current?.addEventListener('mouseup', handleTouchEnd);
+    sheet.current?.addEventListener("mousedown", handleTouchStart);
+    sheet.current?.addEventListener("mousemove", handleTouchMove);
+    sheet.current?.addEventListener("mouseup", handleTouchEnd);
 
     return () => {
-      sheet.current?.removeEventListener('touchstart', handleTouchStart);
-      sheet.current?.removeEventListener('touchmove', handleTouchMove);
-      sheet.current?.removeEventListener('touchend', handleTouchEnd);
+      sheet.current?.removeEventListener("touchstart", handleTouchStart);
+      sheet.current?.removeEventListener("touchmove", handleTouchMove);
+      sheet.current?.removeEventListener("touchend", handleTouchEnd);
 
-      sheet.current?.removeEventListener('mousedown', handleTouchStart);
-      sheet.current?.removeEventListener('mousemove', handleTouchMove);
-      sheet.current?.removeEventListener('mouseup', handleTouchEnd);
+      sheet.current?.removeEventListener("mousedown", handleTouchStart);
+      sheet.current?.removeEventListener("mousemove", handleTouchMove);
+      sheet.current?.removeEventListener("mouseup", handleTouchEnd);
     };
   }, []);
 
@@ -167,12 +167,12 @@ export function useBottomSheet() {
       metrics.current.isContentAreaTouched = true;
     };
 
-    content.current?.addEventListener('touchstart', handleTouchStart);
-    content.current?.addEventListener('mousedown', handleMouseDown);
+    content.current?.addEventListener("touchstart", handleTouchStart);
+    content.current?.addEventListener("mousedown", handleMouseDown);
 
     return () => {
-      content.current?.removeEventListener('touchstart', handleTouchStart);
-      content.current?.removeEventListener('mousedown', handleMouseDown);
+      content.current?.removeEventListener("touchstart", handleTouchStart);
+      content.current?.removeEventListener("mousedown", handleMouseDown);
     };
   }, []);
 

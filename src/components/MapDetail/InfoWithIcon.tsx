@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
-import Booth from '../../types/Booth';
+import styled, { css } from "styled-components";
+import Booth from "../../types/Booth";
 
 const MapInfoMiddle = styled.div<{$small: string }>`
   padding-left: 0;
@@ -25,7 +25,7 @@ const MapInfoMiddle = styled.div<{$small: string }>`
     height: 100%;
   }
 
-  ${(props) => (props.$small === 'false') && css`
+  ${(props) => (props.$small === "false") && css`
   :first-child{
       span{
         width: 16px;
@@ -66,7 +66,7 @@ const MapInfoMiddle = styled.div<{$small: string }>`
     }
   `}
 
-  ${(props) => (props.$small === 'true') && css`
+  ${(props) => (props.$small === "true") && css`
     font-size: 12px;
     div{
       padding-bottom: 3px;
@@ -113,7 +113,7 @@ const MapInfoMiddle = styled.div<{$small: string }>`
 `;
 
 type InfoWithIconProps = {
-  small: 'true' | 'false';
+  small: "true" | "false";
   booth: Booth;
   selectedDay: string;
 }
@@ -128,7 +128,7 @@ export default function InfoWithIcon({
   const {
     department, location, time, boothDays,
   } = booth;
-  const days = boothDays.map((dayInfo) => dayInfo.day).join(', ');
+  const days = boothDays.map((dayInfo) => dayInfo.day).join(", ");
 
   return (
     <MapInfoMiddle $small={small}>

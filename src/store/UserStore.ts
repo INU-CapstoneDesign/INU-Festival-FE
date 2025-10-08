@@ -1,14 +1,14 @@
-import { singleton } from 'tsyringe';
+import { singleton } from "tsyringe";
 
-import { Action, Store } from 'usestore-ts';
+import { Action, Store } from "usestore-ts";
 
-import { apiService } from '../services/ApiService';
+import { apiService } from "../services/ApiService";
 
 @singleton()
 @Store()
 // eslint-disable-next-line import/prefer-default-export
 export class UserStore {
-  name = '';
+  name = "";
 
   error = false;
 

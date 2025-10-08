@@ -1,6 +1,6 @@
-import BoothDay from './BoothDay';
-import boothImg from './boothImg';
-import BoothComment from './BoothComment';
+import BoothDay from "./BoothDay";
+import boothImg from "./boothImg";
+import BoothComment from "./BoothComment";
 
 interface Booth {
     id: string;

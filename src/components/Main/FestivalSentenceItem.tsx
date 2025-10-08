@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import Shouts from '../../types/Shouts';
+import Shouts from "../../types/Shouts";
 
 const SentenceItemBox = styled.div`
   display: flex;

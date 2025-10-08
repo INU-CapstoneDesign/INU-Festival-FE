@@ -1,23 +1,23 @@
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
-import Perform from '../../types/Perform';
+import Perform from "../../types/Perform";
 
 const Container = styled.div`
   width: 159px;
   height: 21rem;
   margin-bottom: 20px;
 
-img {
-  width: 159px;
-  height: 154px;
-  border-radius: 1.2rem;
-  box-shadow: 0px 2px 5px 0px rgba(0, 71, 201, 0.15);
-}
+  img {
+    width: 159px;
+    height: 154px;
+    border-radius: 1.2rem;
+    box-shadow: 0px 2px 5px 0px rgba(0, 71, 201, 0.15);
+  }
 
-div {
-  margin-top: 5px;
-  margin-top: 5px;
-}
+  div {
+    margin-top: 5px;
+    margin-top: 5px;
+  }
 `;
 
 const Title = styled.p`
@@ -39,31 +39,22 @@ const Description = styled.p`
 
 type LineupProps = {
   lineup: Perform;
-}
+};
 
 export default function Lineup({ lineup }: LineupProps) {
-  const {
-    name, startTime, endTime, img,
-  } = lineup;
+  const { name, time } = lineup;
 
   return (
     <Container>
-      {lineup.img === 'temp.img' ? (
-        <img src="LineupDefault.jpeg" alt="Default" />
+      {lineup.img === "temp.img" ? (
+        <img src="/LineupDefault.jpeg" alt="Default" />
       ) : (
         <img src={lineup.img} alt={lineup.img} />
       )}
       <div>
         <Title>{name}</Title>
-        <Description>
-          {startTime}
-          {' '}
-          ~
-          {' '}
-          {endTime}
-        </Description>
+        <Description>{time}</Description>
       </div>
-
     </Container>
   );
 }

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const BlurContainer = styled.div`
   max-width: 600px;

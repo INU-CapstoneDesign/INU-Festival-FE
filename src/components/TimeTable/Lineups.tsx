@@ -1,18 +1,18 @@
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import Lineup from './Lineup';
+import Lineup from "./Lineup";
 
-import Perform from '../../types/Perform';
+import Perform from "../../types/Perform";
 
-import useCheckScreenWidth from '../../hooks/useCheckScreenWidth';
+import useCheckScreenWidth from "../../hooks/useCheckScreenWidth";
 
 type LineupsProps = {
-    lineups: Perform[];
-}
+  lineups: Perform[];
+};
 
 const Section = styled.section`
   h1 {
@@ -25,8 +25,8 @@ const Section = styled.section`
     width: 100%;
   }
 
-  h3{
-    color: #A9A9A9;
+  h3 {
+    color: #a9a9a9;
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
@@ -53,13 +53,10 @@ export default function Lineups({ lineups }: LineupsProps) {
         pagination={{ clickable: true }}
         allowTouchMove
         slidesOffsetAfter={110}
-
       >
         {lineups.map((lineup) => (
           <SwiperSlide key={lineup.id}>
-            <Lineup
-              lineup={lineup}
-            />
+            <Lineup lineup={lineup} />
           </SwiperSlide>
         ))}
       </Swiper>

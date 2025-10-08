@@ -1,4 +1,4 @@
-import { css, styled } from 'styled-components';
+import { css, styled } from "styled-components";
 
 type ButtonProps = {
     $active: boolean;
@@ -53,7 +53,7 @@ export default function Category({
         onClick={() => handleSetFilterCategory(category)}
       >
         Day
-        {' '}
+        {" "}
         {category[category.length - 1]}
       </Button>
     </li>

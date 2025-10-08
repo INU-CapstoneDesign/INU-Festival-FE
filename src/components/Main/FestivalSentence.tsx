@@ -1,14 +1,13 @@
-import { useNavigate } from 'react-router';
-import styled from 'styled-components';
+import { useNavigate } from "react-router";
+import styled from "styled-components";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 
-import FestivalSentenceItem from './FestivalSentenceItem';
-import useFetchSentence from '../../hooks/useFetchSentence';
-import Word from './Word';
+import FestivalSentenceItem from "./FestivalSentenceItem";
+import useFetchSentence from "../../hooks/useFetchSentence";
 
-import SkeletonFestivalSentence from '../Loading/SkeletonFestivalSentenceItem';
+import SkeletonFestivalSentence from "../Loading/SkeletonFestivalSentenceItem";
 
 const FestivalSentenceBox = styled.div`
   display: flex;
@@ -36,40 +35,36 @@ export default function FestivalSentence() {
   const navigate = useNavigate();
 
   const handleClickGuestbook = () => {
-    navigate('/guestbook');
+    navigate("/guestbook");
   };
 
   return (
-    <>
-      <FestivalSentenceBox onClick={handleClickGuestbook}>
-        <SentenceBox>
-          {data === undefined ? (
-            <SkeletonFestivalSentence />
-          ) : (
-            <Swiper
-              direction="vertical"
-              loop
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-              }}
-              modules={[Autoplay]}
-              className="mySwiper"
-            >
-              {data.shouts.slice(0).reverse().map((sentence) => (
-                <SwiperSlide
-                  key={sentence.id}
-                >
-                  <FestivalSentenceItem
-                    sentence={sentence}
-                  />
+    <FestivalSentenceBox onClick={handleClickGuestbook}>
+      <SentenceBox>
+        {data === undefined ? (
+          <SkeletonFestivalSentence />
+        ) : (
+          <Swiper
+            direction="vertical"
+            loop
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            modules={[Autoplay]}
+            className="mySwiper"
+          >
+            {data.shouts
+              .slice(0)
+              .reverse()
+              .map((sentence) => (
+                <SwiperSlide key={sentence.id}>
+                  <FestivalSentenceItem sentence={sentence} />
                 </SwiperSlide>
               ))}
-            </Swiper>
-          )}
-        </SentenceBox>
-      </FestivalSentenceBox>
-      <Word />
-    </>
+          </Swiper>
+        )}
+      </SentenceBox>
+    </FestivalSentenceBox>
   );
 }

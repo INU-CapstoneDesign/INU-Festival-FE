@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { useEffect } from 'react';
-import useUserStore from '../../hooks/useUserStore';
-import useCheckAccessToken from '../../hooks/useCheckAccessToken';
+import { useEffect } from "react";
+import useUserStore from "../../hooks/useUserStore";
+import useCheckAccessToken from "../../hooks/useCheckAccessToken";
 
 const UserInfoWrapper = styled.div`
   display: flex;
@@ -64,7 +64,7 @@ function UserDetail() {
       <div>안녕하세요!</div>
       <p>
         {store.name}
-        {' '}
+        {" "}
         님
       </p>
     </Container>

@@ -1,5 +1,5 @@
-import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 
 const Container = styled.div`
   z-index: 300;
@@ -67,7 +67,7 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-const color = '#BBC7D3';
+const color = "#BBC7D3";
 
 export default function Navbar() {
   return (

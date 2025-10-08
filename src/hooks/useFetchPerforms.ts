@@ -1,13 +1,14 @@
-import { useFetch } from 'usehooks-ts';
+import { useFetch } from "usehooks-ts";
 
-import Perform from '../types/Perform';
+import Perform from "../types/Perform";
 
-const url = `${process.env.REACT_APP_URL}/timetable`;
+const url = `${import.meta.env.VITE_API_URL}/timetable`;
 
 type Performs = {
-  performs: Perform[];
-}
+  perform: Perform[];
+};
 
 export default function useFetchPerforms() {
-  return useFetch<Performs>(url);
+  const result = useFetch<Performs>(url);
+  return result;
 }

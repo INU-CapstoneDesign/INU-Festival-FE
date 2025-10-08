@@ -1,12 +1,12 @@
-import { useFetch } from 'usehooks-ts';
+import { useFetch } from "usehooks-ts";
 
-import Notice from '../types/Notice';
+import Notice from "../types/Notice";
 
-const url = `${process.env.REACT_APP_URL}/notice`;
+const url = `${import.meta.env.VITE_API_URL}/notice`;
 
 type Notices = {
-    notices: Notice[];
-}
+  notices: Notice[];
+};
 
 export default function useFetchNotices() {
   const { data } = useFetch<Notices>(url);
