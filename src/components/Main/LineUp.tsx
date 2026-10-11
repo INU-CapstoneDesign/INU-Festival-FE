@@ -30,10 +30,10 @@ const SkeletonImg = styled(Skeleton.SkeletonBox)`
 `;
 
 export default function LineUp({ perView, spaceBetween }: LineUpProps) {
-  const { data } = useFetchPerforms();
+  const performs = useFetchPerforms();
 
   const lineups =
-    data?.performs?.filter(
+    performs?.filter(
       (perform) => perform.category === "연예인" && perform.day === "day3"
     ) || [];
 
@@ -46,7 +46,7 @@ export default function LineUp({ perView, spaceBetween }: LineUpProps) {
       allowTouchMove
       slidesOffsetAfter={50}
     >
-      {data === undefined
+      {performs === undefined
         ? new Array(5).fill(1).map((_, i) => (
             <SwiperSlide key={i}>
               <Container data-hash={i}>

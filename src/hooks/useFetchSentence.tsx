@@ -1,19 +1,18 @@
-import { useFetch } from "usehooks-ts";
+import { useEffect, useState } from "react";
 
 import Shouts from "../types/Shouts";
-
-const url = `${import.meta.env.VITE_API_URL}/sentence`;
-
-type Sentences = {
-  shouts: Shouts[];
-};
+import { apiService } from "../services/ApiService";
 
 export default function useFetchSentence() {
-  const accessToken = localStorage.getItem("accessToken") || "";
+  // undefined = 아직 로딩 중 (FestivalSentence가 스켈레톤을 보여줌)
+  const [shouts, setShouts] = useState<Shouts[] | undefined>(undefined);
 
-  return useFetch<Sentences>(url, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+  useEffect(() => {
+    apiService
+      .fetchSentences()
+      .then((data) => setShouts(data))
+      .catch(() => setShouts([]));
+  }, []);
+
+  return shouts;
 }

@@ -1,19 +1,21 @@
-import { useFetch } from "usehooks-ts";
+import { useEffect, useState } from "react";
 
 import Booth from "../types/Booth";
-
-type BoothType = {
-  booth: Booth;
-};
+import { apiService } from "../services/ApiService";
 
 export default function useFetchBooth(id: string) {
-  const url = `${import.meta.env.VITE_API_URL}/booth/${id}`;
+  const [booth, setBooth] = useState<Booth | never[]>([]);
 
-  const { data } = useFetch<BoothType>(url);
+  useEffect(() => {
+    apiService
+      .fetchBooth(id)
+      .then((data) => {
+        setBooth(data);
+      })
+      .catch(() => {
+        setBooth([]);
+      });
+  }, [id]);
 
-  if (!data) {
-    return [];
-  }
-
-  return data.booth;
+  return booth;
 }

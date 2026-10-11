@@ -1,17 +1,18 @@
-import { useFetch } from "usehooks-ts";
-
+import { useEffect, useState } from "react";
 import Notice from "../types/Notice";
-
-const url = `${import.meta.env.VITE_API_URL}/notice`;
-
-type Notices = {
-  notices: Notice[];
-};
+import { apiService } from "../services/ApiService";
 
 export default function useFetchNotices() {
-  const { data } = useFetch<Notices>(url);
-  if (!data) {
-    return [];
-  }
-  return data.notices;
+  const [notices, setNotices] = useState<Notice[]>([]);
+  useEffect(() => {
+    apiService
+      .fetchNotices()
+      .then((data) => {
+        setNotices(data);
+      })
+      .catch(() => {
+        setNotices([]);
+      });
+  }, []);
+  return notices;
 }

@@ -1,13 +1,18 @@
-import { useFetch } from "usehooks-ts";
-
+import { useEffect, useState } from "react";
 import Booth from "../types/Booth";
-
-const url = `${import.meta.env.VITE_API_URL}/booth/top`;
-
-type Booths = {
-  booths: Booth[];
-};
+import { apiService } from "../services/ApiService";
 
 export default function useFetchBoothsRanking() {
-  return useFetch<Booths>(url);
+  const [booths, setBooths] = useState<Booth[] | undefined>(undefined);
+  useEffect(() => {
+    apiService
+      .fetchBoothRanking()
+      .then((data) => {
+        setBooths(data);
+      })
+      .catch(() => {
+        setBooths(undefined);
+      });
+  }, []);
+  return booths;
 }

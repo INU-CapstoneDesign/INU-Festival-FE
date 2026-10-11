@@ -31,7 +31,7 @@ const SentenceBox = styled.div`
 `;
 
 export default function FestivalSentence() {
-  const { data } = useFetchSentence();
+  const shouts = useFetchSentence();
   const navigate = useNavigate();
 
   const handleClickGuestbook = () => {
@@ -41,7 +41,7 @@ export default function FestivalSentence() {
   return (
     <FestivalSentenceBox onClick={handleClickGuestbook}>
       <SentenceBox>
-        {data === undefined ? (
+        {shouts === undefined ? (
           <SkeletonFestivalSentence />
         ) : (
           <Swiper
@@ -54,7 +54,7 @@ export default function FestivalSentence() {
             modules={[Autoplay]}
             className="mySwiper"
           >
-            {data.shouts
+            {shouts
               .slice(0)
               .reverse()
               .map((sentence) => (

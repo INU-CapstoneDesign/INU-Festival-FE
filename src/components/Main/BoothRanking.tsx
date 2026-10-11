@@ -114,7 +114,7 @@ const BoothHeart = styled.div`
 `;
 
 export default function BoothRanking() {
-  const { data } = useFetchBoothsRanking();
+  const booths = useFetchBoothsRanking();
   const formatter = getCompactNumberFormatter();
   const navigate = useNavigate();
 
@@ -136,11 +136,11 @@ export default function BoothRanking() {
         <BoothWrapper>
           <BoothRankingCrown>부스 랭킹 👑</BoothRankingCrown>
           <LineDiv />
-          {data === undefined
+          {booths === undefined
             ? new Array(5)
                 .fill(1)
                 .map((_, i) => <SkeletonBoothRanking key={i} />)
-            : data?.booths.map((booth, index) => (
+            : booths.map((booth, index) => (
                 <BoothRank key={booth.id}>
                   <BoothItem booth={booth} index={index} />
                   <BoothHeartContainer>

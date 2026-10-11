@@ -121,7 +121,7 @@ export default function GuestBook() {
   const messageEndRef = useRef<HTMLDivElement>(null);
 
   const [, store] = useUserStore();
-  const { data } = useFetchSentence();
+  const shouts = useFetchSentence();
 
   store.fetchCurrentUser();
 
@@ -129,7 +129,7 @@ export default function GuestBook() {
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messageList, data]);
+  }, [messageList, shouts]);
 
   useEffect(() => {
     const handleNewMessage = (receivedData: Message) => {
@@ -207,7 +207,7 @@ export default function GuestBook() {
     <>
       <Header shadow="false">실시간 채팅</Header>
       <Container ref={chatWindow} onClick={() => handleBottomBanner()}>
-        {data?.shouts.map((message) => (
+        {shouts?.map((message) => (
           <MessageContainer msg={message} name={store.name} key={message.id} />
         ))}
         {messageList.map((message, index) => (

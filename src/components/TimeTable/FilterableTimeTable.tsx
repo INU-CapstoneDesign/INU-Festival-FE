@@ -31,12 +31,12 @@ export default function FilterableTimeTable() {
   const [categories] = useState(["day1", "day2", "day3"]);
   const [filterCategory, setFilterCatergory] = useState(today[day] || "day1");
 
-  const { data } = useFetchPerforms();
-  const filteredPerforms = data
-    ? filterPerforms(data.perform, filterCategory)
+  const performs = useFetchPerforms();
+  const filteredPerforms = performs
+    ? filterPerforms(performs, filterCategory)
     : [];
 
-  const dates = data ? selectDates(data.perform) : [];
+  const dates = performs ? selectDates(performs) : [];
 
   return (
     <div>

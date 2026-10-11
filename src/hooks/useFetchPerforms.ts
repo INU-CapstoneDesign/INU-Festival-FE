@@ -1,14 +1,18 @@
-import { useFetch } from "usehooks-ts";
-
+import { useEffect, useState } from "react";
 import Perform from "../types/Perform";
-
-const url = `${import.meta.env.VITE_API_URL}/timetable`;
-
-type Performs = {
-  perform: Perform[];
-};
+import { apiService } from "../services/ApiService";
 
 export default function useFetchPerforms() {
-  const result = useFetch<Performs>(url);
-  return result;
+  const [performs, setPerforms] = useState<Perform[] | undefined>(undefined);
+
+  useEffect(() => {
+    apiService
+      .fetchPerforms()
+      .then((data) => setPerforms(data))
+      .catch(() => {
+        setPerforms([]);
+      });
+  }, []);
+
+  return performs;
 }
