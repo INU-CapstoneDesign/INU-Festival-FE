@@ -11,7 +11,7 @@ export default function useFetchBoothsRanking() {
         setBooths(data);
       })
       .catch(() => {
-        setBooths(undefined);
+        setBooths([]);
       });
   }, []);
   return booths;
