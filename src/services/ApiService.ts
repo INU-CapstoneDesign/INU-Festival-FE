@@ -1,5 +1,13 @@
 import axios from "axios";
 
+import Booth from "../types/Booth";
+import BoothComment from "../types/BoothComment";
+import Message from "../types/Message";
+import Notice from "../types/Notice";
+import Perform from "../types/Perform";
+import SendComment from "../types/SendComment";
+import Shouts from "../types/Shouts";
+
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 export default class ApiService {
   private instance = axios.create({
@@ -58,10 +66,53 @@ export default class ApiService {
     id: string;
     liked: number;
   }): Promise<{ liked: number }> {
-    const response = await this.instance.put(`booth/liked/${id}`, {
+    const response = await this.instance.put(`/booth/liked/${id}`, {
       likeCount: liked,
     });
     return response.data;
+  }
+
+  async fetchBooths(): Promise<Booth[]> {
+    const { data } = await this.instance.get("/booth/all");
+    return data.booths;
+  }
+
+  async fetchBoothRanking(): Promise<Booth[]> {
+    const { data } = await this.instance.get("/booth/top");
+    return data.booths;
+  }
+
+  async fetchBooth(id: string): Promise<Booth> {
+    const { data } = await this.instance.get(`/booth/${id}`);
+    return data.booth;
+  }
+
+  async fetchBoothComments(id: string): Promise<BoothComment[]> {
+    const { data } = await this.instance.get(`/booth/${id}/comment`);
+    return data.boothComments;
+  }
+
+  async createBoothComment(id: string, comment: SendComment): Promise<void> {
+    await this.instance.post(`/booth/comment/${id}`, comment);
+  }
+
+  async fetchPerforms(): Promise<Perform[]> {
+    const { data } = await this.instance.get("/timetable");
+    return data.performs;
+  }
+
+  async fetchNotices(): Promise<Notice[]> {
+    const { data } = await this.instance.get("/notice");
+    return data.notices;
+  }
+
+  async fetchSentences(): Promise<Shouts[]> {
+    const { data } = await this.instance.get("/sentence");
+    return data.shouts;
+  }
+
+  async createSentence(message: Message): Promise<void> {
+    await this.instance.post("/sentence", message);
   }
 }
 
