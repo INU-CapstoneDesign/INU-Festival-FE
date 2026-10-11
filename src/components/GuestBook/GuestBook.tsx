@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router";
 import styled from "styled-components";
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 
 import Header from "../Notice/Header";
 import MessageContainer from "./MessageContainer";
@@ -122,6 +122,7 @@ export default function GuestBook() {
   const inputRef = useRef<HTMLInputElement>(null);
   const chatWindow = useRef<HTMLDivElement>(null);
   const messageEndRef = useRef<HTMLDivElement>(null);
+  const socketRef = useRef<Socket | null>(null);
 
   const [, store] = useUserStore();
   const shouts = useFetchSentence();
@@ -130,19 +131,26 @@ export default function GuestBook() {
     store.fetchCurrentUser();
   }, [accessToken]);
 
-  const socket = io(ServerURL);
-
   useEffect(() => {
-    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messageList, shouts]);
+    const socket = io(ServerURL);
+    socketRef.current = socket;
 
-  useEffect(() => {
     const handleNewMessage = (receivedData: Message) => {
       setMessageList((prevMessages) => [...prevMessages, receivedData]);
     };
 
     socket.on("update", handleNewMessage);
+
+    return () => {
+      socket.off("update", handleNewMessage);
+      socket.disconnect();
+      socketRef.current = null;
+    };
   }, []);
+
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messageList, shouts]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -171,7 +179,7 @@ export default function GuestBook() {
     apiService
       .createSentence(dataToSend)
       .then(() => {
-        socket.emit("message", dataToSend);
+        socketRef.current?.emit("message", dataToSend);
       })
       .catch(() => {
         alert("메시지를 보내지 못했어요. 잠시 후 다시 시도해 주세요.");
