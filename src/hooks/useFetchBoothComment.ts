@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import BoothComments from "../types/BoothComment";
+
+import BoothComment from "../types/BoothComment";
 import { apiService } from "../services/ApiService";
 
 export default function useFetchBoothComment(id: string) {
-  const [boothComments, setBoothComments] = useState<BoothComments[]>([]);
+  const [boothComments, setBoothComments] = useState<BoothComment[]>([]);
 
   useEffect(() => {
     apiService
@@ -15,5 +16,6 @@ export default function useFetchBoothComment(id: string) {
         setBoothComments([]);
       });
   }, [id]);
+
   return boothComments;
 }

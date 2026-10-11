@@ -10,8 +10,12 @@ export default function useFetchSentence() {
   useEffect(() => {
     apiService
       .fetchSentences()
-      .then((data) => setShouts(data))
-      .catch(() => setShouts([]));
+      .then((data) => {
+        setShouts(data);
+      })
+      .catch(() => {
+        setShouts([]);
+      });
   }, []);
 
   return shouts;
