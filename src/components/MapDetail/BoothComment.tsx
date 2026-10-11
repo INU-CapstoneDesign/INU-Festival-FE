@@ -6,6 +6,9 @@ import SendComment from "../../types/SendComment";
 import BoothComment from "../../types/BoothComment";
 import useUserStore from "../../hooks/useUserStore";
 
+import useAccessToken from "../../hooks/useAccessToken";
+import { apiService } from "../../services/ApiService";
+
 const CommentTop = styled.div`
   display: flex;
   align-items: center;
@@ -176,7 +179,7 @@ export default function BoothCommentComponent({
   setCommentCount: (value: number) => void;
 }) {
   const [inputValue, setInputValue] = useState("");
-  const accessToken = localStorage.getItem("accessToken");
+  const { accessToken } = useAccessToken();
   const navigate = useNavigate();
   const location = useLocation();
   const boothComments: BoothComment[] = useFetchBoothComment(boothId);
@@ -188,7 +191,7 @@ export default function BoothCommentComponent({
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (accessToken === '""') {
+    if (!accessToken) {
       alert("로그인 후에 메시지를 보낼 수 있습니다.");
       navigate("/login", { state: { from: location.pathname } });
       return;
@@ -209,28 +212,15 @@ export default function BoothCommentComponent({
       emoji: randomEmoji,
     };
 
-    setCommentCount((prev: number) => prev + 1);
-
-    fetch(`${import.meta.env.VITE_API_URL}/booth/comment/${boothId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify(dataToSend),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to send comment");
-        }
-        return response.json();
-      })
+    apiService
+      .createBoothComment(boothId, dataToSend)
       .then(() => {
+        setCommentCount((prev: number) => prev + 1);
         setInputValue("");
         setNewBoothComment([...newBoothComment, dataToSend]);
       })
-      .catch((error) => {
-        // 에러 처리 (필요시 사용자에게 알림)
+      .catch(() => {
+        alert("댓글을 등록하지 못했어요. 잠시 후 다시 시도해 주세요.");
       });
   };
 

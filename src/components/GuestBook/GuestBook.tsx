@@ -11,6 +11,9 @@ import Message from "../../types/Message";
 import useFetchSentence from "../../hooks/useFetchSentence";
 import useUserStore from "../../hooks/useUserStore";
 
+import useAccessToken from "../../hooks/useAccessToken";
+import { apiService } from "../../services/ApiService";
+
 const Container = styled.div`
   padding-inline: ${(props) => props.theme.sizes.contentPadding};
   background-color: #f4f6f9;
@@ -108,7 +111,7 @@ const ServerURL = import.meta.env.VITE_API_URL;
 const MAX_LENGTH = 16;
 
 export default function GuestBook() {
-  const [accessToken] = useState(localStorage.getItem("accessToken") || "");
+  const { accessToken } = useAccessToken();
   const [messageList, setMessageList] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [inputBanner, setInputBanner] = useState(false);
@@ -163,28 +166,20 @@ export default function GuestBook() {
       emoji,
     };
 
-    fetch(`${import.meta.env.VITE_API_URL}/sentence`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify(dataToSend),
-    })
-      .then((response) => response.json())
+    apiService
+      .createSentence(dataToSend)
       .then(() => {
         socket.emit("message", dataToSend);
       })
-      .catch((error) => {
-        // 에러 처리 (필요시 사용자에게 알림)
+      .catch(() => {
+        alert("메시지를 보내지 못했어요. 잠시 후 다시 시도해 주세요.");
       });
 
     setInputValue("");
   };
 
   const handleWriteButton = () => {
-    const userAccessToken = JSON.parse(accessToken);
-    if (userAccessToken === "") {
+    if (!accessToken) {
       alert("로그인 후에 메시지를 보낼 수 있습니다.");
       navigate("/login", { state: { from: location.pathname } });
       return;
