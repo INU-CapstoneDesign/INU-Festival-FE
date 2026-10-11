@@ -126,7 +126,9 @@ export default function GuestBook() {
   const [, store] = useUserStore();
   const shouts = useFetchSentence();
 
-  store.fetchCurrentUser();
+  useEffect(() => {
+    store.fetchCurrentUser();
+  }, [accessToken]);
 
   const socket = io(ServerURL);
 
